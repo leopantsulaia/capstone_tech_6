@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
@@ -6,9 +6,13 @@ import "../assets/styles/header.css";
 import { IoIosArrowDown } from "react-icons/io";
 
 const Header = () => {
+	const [isMegaBoxVisible, setIsMegaBoxVisible] = useState(false);
 	const navRef = useRef();
 	const showNavbar = () => {
 		navRef.current.classList.toggle("responsive-nav");
+	};
+	const toggleMegaBox = () => {
+		setIsMegaBoxVisible(!isMegaBoxVisible);
 	};
 
 	return (
@@ -28,7 +32,7 @@ const Header = () => {
 						<Link
 							to={"/"}
 							className="logo">
-							Mariamis Atelier
+							Mariami's Atelier
 						</Link>
 						<nav>
 							<ul
@@ -41,10 +45,11 @@ const Header = () => {
 										Home
 									</NavLink>
 								</li>
-								<li className="mega-dropdown">
+								<li className={`mega-dropdown ${isMegaBoxVisible ? "show" : ""}`}>
 									<NavLink
 										to={"/products"}
-										className="list-item">
+										className="list-item"
+										onClick={toggleMegaBox}>
 										Products <IoIosArrowDown />
 									</NavLink>
 									<div className="mega-box">
